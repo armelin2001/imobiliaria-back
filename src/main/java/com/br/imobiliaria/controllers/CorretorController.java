@@ -15,11 +15,11 @@ public class CorretorController {
     @Autowired
     private CorretorService corretorService;
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Corretor> salvar(@RequestBody Corretor corretor){
         corretor = corretorService.salvar(corretor);
         return new ResponseEntity<>(corretor, HttpStatus.CREATED);
-    }
+    }*/
 
     @GetMapping
     public List<Corretor> getAll(){

@@ -1,9 +1,9 @@
 package com.br.imobiliaria.entity;
 
+import com.br.imobiliaria.dto.request.CorretorCreateDto;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Document("Corretor")
 public class Corretor {
@@ -24,7 +24,10 @@ public class Corretor {
         this.nome = nome;
         this.email = email;
     }
-
+    public Corretor(CorretorCreateDto corretorCreateDto){
+        this.nome = corretorCreateDto.getNome();
+        this.email = corretorCreateDto.getEmail();
+    }
     public String getId() {
         return id;
     }

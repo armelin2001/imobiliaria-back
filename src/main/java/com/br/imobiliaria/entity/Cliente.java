@@ -1,5 +1,6 @@
 package com.br.imobiliaria.entity;
 
+import com.br.imobiliaria.dto.request.ClienteCreateDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -17,6 +18,12 @@ public class Cliente {
 
 
     public Cliente() {
+    }
+
+    public Cliente(ClienteCreateDTO clienteCreateDTO){
+        this.nome = clienteCreateDTO.getNome();
+        this.cpf = clienteCreateDTO.getCpf();
+        this.email = clienteCreateDTO.getEmail();
     }
 
     public Cliente(String nome, String cpf, String email) {
