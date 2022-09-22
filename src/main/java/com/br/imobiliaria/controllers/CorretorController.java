@@ -1,5 +1,7 @@
 package com.br.imobiliaria.controllers;
 
+import com.br.imobiliaria.dto.request.CorretorCreateDto;
+import com.br.imobiliaria.dto.response.RetornoGenerico;
 import com.br.imobiliaria.entity.Corretor;
 import com.br.imobiliaria.services.CorretorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,10 @@ public class CorretorController {
     @Autowired
     private CorretorService corretorService;
 
-    /*@PostMapping
-    public ResponseEntity<Corretor> salvar(@RequestBody Corretor corretor){
-        corretor = corretorService.salvar(corretor);
-        return new ResponseEntity<>(corretor, HttpStatus.CREATED);
-    }*/
+    @PostMapping
+    public RetornoGenerico salvar(@RequestBody CorretorCreateDto corretor){
+        return corretorService.salvar(corretor);
+    }
 
     @GetMapping
     public List<Corretor> getAll(){

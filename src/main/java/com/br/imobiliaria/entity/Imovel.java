@@ -1,5 +1,6 @@
 package com.br.imobiliaria.entity;
 
+import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.entity.enums.TipoImoveis;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -57,6 +58,38 @@ public class Imovel {
         this.reservado = false;
     }
 
+    public Imovel(TipoImoveis tipoImovel, String estado,
+                  String cidade, String bairro,
+                  String rua, String cep, String complemento,
+                  float valorBase, float valorNegociado,
+                  Date criacao,
+                  Corretor corretorAnunciado) {
+        this.tipoImovel = tipoImovel;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.cep = cep;
+        this.complemento = complemento;
+        this.valorBase = valorBase;
+        this.valorNegociado = valorNegociado;
+        this.criacao = criacao;
+        this.reservado = false;
+        this.corretorAnunciado = corretorAnunciado;
+    }
+    public Imovel(ImovelCreateDTO imovelCreateDTO){
+        this.tipoImovel = imovelCreateDTO.getTipoImoveis();
+        this.estado = imovelCreateDTO.getEstado();
+        this.cidade = imovelCreateDTO.getCidade();
+        this.bairro = imovelCreateDTO.getBairro();
+        this.rua = imovelCreateDTO.getRua();
+        this.cep = imovelCreateDTO.getCep();
+        this.complemento = imovelCreateDTO.getComplemento();
+        this.valorBase = imovelCreateDTO.getValorBase();
+        this.valorNegociado = imovelCreateDTO.getValorNegociado();
+        this.criacao = imovelCreateDTO.getCriacao();
+        this.reservado = false;
+    }
     public String getId() {
         return id;
     }
