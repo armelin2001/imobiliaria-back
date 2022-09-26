@@ -5,6 +5,8 @@ import com.br.imobiliaria.dto.response.RetornoGenerico;
 import com.br.imobiliaria.entity.Cliente;
 import com.br.imobiliaria.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,18 +14,18 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public RetornoGenerico saveCliente(ClienteCreateDTO clienteCreateDTO){
+    public ResponseEntity<?> saveCliente(ClienteCreateDTO clienteCreateDTO){
         Cliente clienteCreate = new Cliente(clienteCreateDTO);
-        return new RetornoGenerico("201", clienteRepository.save(clienteCreate));
+        return new ResponseEntity<>( new RetornoGenerico(clienteRepository.save(clienteCreate)), HttpStatus.OK);
     }
 
-    public RetornoGenerico getById(String id){
+    public ResponseEntity<?> getById(String id){
         boolean clienteEncontrado = clienteRepository.findById(id).isEmpty();
         if(!clienteEncontrado){
-            return new RetornoGenerico("200", clienteRepository.findById(id));
+            return new ResponseEntity<>( new RetornoGenerico(clienteRepository.findById(id).get()), HttpStatus.OK);
         }
         else{
-            return new RetornoGenerico("404", "Cliente não encontrado!");
+            return new ResponseEntity<>( new RetornoGenerico("Imovel não encontrado"), HttpStatus.NOT_FOUND);
         }
     }
 

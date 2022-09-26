@@ -7,9 +7,10 @@ import com.br.imobiliaria.entity.Imovel;
 import com.br.imobiliaria.repository.CorretorRepository;
 import com.br.imobiliaria.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,45 +22,42 @@ public class ImovelService {
     @Autowired
     private CorretorRepository corretorRepository;
 
-    public RetornoGenerico saveImovel(ImovelCreateDTO imovelCreateDTO){
+    public ResponseEntity<?> saveImovel(ImovelCreateDTO imovelCreateDTO){
         String idCorretor = imovelCreateDTO.getCorretorAnunciadoId();
         Optional<Corretor> corretor = corretorRepository
                 .findById(idCorretor);
         if(!corretor.isEmpty()){
             Imovel imovelCreateParcial = new Imovel(imovelCreateDTO);
             imovelCreateParcial.setCorretorAnunciado(corretor.get());
-            return new RetornoGenerico(
-                    "200",
-                    imovelRepository.save(imovelCreateParcial)
-            );
+            return new ResponseEntity<>( new RetornoGenerico(imovelRepository.save(imovelCreateParcial)), HttpStatus.CREATED);
         }
         else {
-            return new RetornoGenerico("404", "Corretor incorreto!");
+            return new ResponseEntity<>( new RetornoGenerico("Imovel incorreto!"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
-    public RetornoGenerico getById(String id){
+    public ResponseEntity<?> getById(String id){
         Optional<Imovel> imovelEncontrato = imovelRepository.findById(id);
         if(!imovelEncontrato.isEmpty()){
-            return new RetornoGenerico("200", imovelEncontrato);
+            return new ResponseEntity<>( new RetornoGenerico(imovelEncontrato.get()), HttpStatus.OK);
         }
         else{
-            return new RetornoGenerico("404", "Imovel não encontrado");
+            return new ResponseEntity<>( new RetornoGenerico("Imovel não encontrado"), HttpStatus.NOT_FOUND);
         }
     }
 
-    public List<Imovel> getAll(){
-        return imovelRepository.findAll();
+    public ResponseEntity<?> getAll(){
+        return new ResponseEntity<>( new RetornoGenerico(imovelRepository.findAll()), HttpStatus.OK);
     }
 
-    public RetornoGenerico remove(String id){
+    public ResponseEntity<?> remove(String id){
         Optional<Imovel> imovelEncontrato = imovelRepository.findById(id);
         if(!imovelEncontrato.isEmpty()){
             imovelRepository.deleteById(id);
-            return new RetornoGenerico("200", "Imovel removido com sucesso!");
+            return new ResponseEntity<>( new RetornoGenerico("Imovel removido com sucesso!"), HttpStatus.OK);
         }
         else{
-            return new RetornoGenerico("404", "Imovel não encontrado");
+            return new ResponseEntity<>( new RetornoGenerico("Imovel não encontrado"), HttpStatus.NOT_FOUND);
         }
     }
 

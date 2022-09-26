@@ -1,34 +1,23 @@
 package com.br.imobiliaria.dto.response;
 
-public class RetornoGenerico {
-    private String staus;
-    private Object obj;
-    private String mensagem;
+import java.util.List;
 
-    public RetornoGenerico(String staus, String mensagem) {
-        this.staus = staus;
+public class RetornoGenerico {
+    private Object retorno;
+    private String mensagem;
+    private List<Object> retornoList;
+
+
+    public RetornoGenerico(String mensagem) {
         this.mensagem = mensagem;
     }
 
-    public RetornoGenerico(String staus, Object obj) {
-        this.staus = staus;
-        this.obj = obj;
+    public RetornoGenerico(Object retorno) {
+        this.retorno = retorno;
     }
 
-    public String getStaus() {
-        return staus;
-    }
-
-    public void setStaus(String staus) {
-        this.staus = staus;
-    }
-
-    public Object getObj() {
-        return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
+    public RetornoGenerico(List<Object> retornoList) {
+        this.retornoList = retornoList;
     }
 
     public String getMensagem() {
@@ -37,5 +26,21 @@ public class RetornoGenerico {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public Object getRetorno() {
+        return retorno;
+    }
+
+    public void setRetorno(Object retorno) {
+        this.retorno = retorno;
+    }
+
+    public List<Object> getRetornoList() {
+        return retornoList;
+    }
+
+    public void setRetornoList(List<Object> retornoList) {
+        this.retornoList = retornoList;
     }
 }

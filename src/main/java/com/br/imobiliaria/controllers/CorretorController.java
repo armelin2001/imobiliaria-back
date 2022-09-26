@@ -18,13 +18,18 @@ public class CorretorController {
     private CorretorService corretorService;
 
     @PostMapping
-    public RetornoGenerico salvar(@RequestBody CorretorCreateDto corretor){
+    public ResponseEntity<?> salvar(@RequestBody CorretorCreateDto corretor){
         return corretorService.salvar(corretor);
     }
 
     @GetMapping
-    public List<Corretor> getAll(){
-        List<Corretor> corretores = corretorService.getAll();
-        return corretores;
+    public ResponseEntity<?> getAll(){
+        return corretorService.getAll();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getById(String id){
+        return corretorService.getById(id);
+    }
+
 }
