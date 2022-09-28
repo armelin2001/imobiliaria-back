@@ -2,6 +2,7 @@ package com.br.imobiliaria.services;
 
 import com.br.imobiliaria.dto.request.ClienteCreateDTO;
 import com.br.imobiliaria.dto.response.RetornoGenerico;
+import com.br.imobiliaria.dto.response.RetornoGenericoErro;
 import com.br.imobiliaria.entity.Cliente;
 import com.br.imobiliaria.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,21 @@ public class ClienteService {
 
     public ResponseEntity<?> saveCliente(ClienteCreateDTO clienteCreateDTO){
         Cliente clienteCreate = new Cliente(clienteCreateDTO);
-        return new ResponseEntity<>( new RetornoGenerico(clienteRepository.save(clienteCreate)), HttpStatus.OK);
+        RetornoGenerico ret = new RetornoGenerico();
+        ret.setRetorno(clienteRepository.save(clienteCreate));
+        return new ResponseEntity<>( ret, HttpStatus.OK);
     }
 
     public ResponseEntity<?> getById(String id){
         boolean clienteEncontrado = clienteRepository.findById(id).isEmpty();
         if(!clienteEncontrado){
-            return new ResponseEntity<>( new RetornoGenerico(clienteRepository.findById(id).get()), HttpStatus.OK);
+            RetornoGenerico ret = new RetornoGenerico();
+            ret.setRetorno(clienteRepository.findById(id).get());
+            return new ResponseEntity<>(ret, HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>( new RetornoGenerico("Imovel não encontrado"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>( new RetornoGenericoErro(
+                    "Cliente incorreto!"), HttpStatus.NOT_FOUND);
         }
     }
 

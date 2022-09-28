@@ -1,8 +1,11 @@
 package com.br.imobiliaria.controllers;
 
 
+import com.br.imobiliaria.controllers.docs.ImovelControllerDocs;
 import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.services.ImovelService;
+import com.sun.istack.NotNull;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/imovel")
-public class ImovelController {
+@Tag(name="imovel", description = "Endpoints de imoveis")
+public class ImovelController implements ImovelControllerDocs {
     @Autowired
     private ImovelService imovelService;
 
     @PostMapping
-    public ResponseEntity<?> saveImovel(@RequestBody ImovelCreateDTO imovelCreateDTO){
+    public ResponseEntity<?> save(@RequestBody ImovelCreateDTO imovelCreateDTO){
         return imovelService.saveImovel(imovelCreateDTO);
     }
 
@@ -25,7 +29,7 @@ public class ImovelController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(String id){
+    public ResponseEntity<?> getById(@PathVariable @NotNull String id){
         return imovelService.getById(id);
     }
 
