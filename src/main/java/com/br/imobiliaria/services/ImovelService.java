@@ -32,9 +32,7 @@ public class ImovelService {
         if(!corretor.isEmpty()){
             Imovel imovelCreateParcial = new Imovel(imovelCreateDTO);
             imovelCreateParcial.setCorretorAnunciado(corretor.get());
-            RetornoGenerico ret = new RetornoGenerico();
-            ret.setRetorno(imovelRepository.save(imovelCreateParcial));
-            return new ResponseEntity<>( ret , HttpStatus.CREATED);
+            return new ResponseEntity<>( imovelRepository.save(imovelCreateParcial) , HttpStatus.CREATED);
         }
         else {
             return new ResponseEntity<>(
@@ -46,9 +44,7 @@ public class ImovelService {
     public ResponseEntity<?> getById(String id){
         Optional<Imovel> imovelEncontrato = imovelRepository.findById(id);
         if(!imovelEncontrato.isEmpty()){
-            RetornoGenerico ret = new RetornoGenerico();
-            ret.setRetorno(imovelEncontrato.get());
-            return new ResponseEntity<>(ret , HttpStatus.OK);
+            return new ResponseEntity<>(imovelEncontrato.get() , HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(new RetornoGenericoErro("Imovel não encontrado"), HttpStatus.NOT_FOUND);
@@ -56,8 +52,7 @@ public class ImovelService {
     }
 
     public ResponseEntity<?> getAll(){
-        RetornoGenericoLista ret = new RetornoGenericoLista(Collections.singletonList(imovelRepository.findAll()));
-        return new ResponseEntity<>(ret , HttpStatus.OK);
+        return new ResponseEntity<>(imovelRepository.findAll() , HttpStatus.OK);
     }
 
     public ResponseEntity<?> remove(String id){
@@ -70,9 +65,23 @@ public class ImovelService {
         }
         else{
             return new ResponseEntity<>(
-                    new RetornoGenericoErro("Imovel removido com sucesso!"),
+                    new RetornoGenericoErro("Imovel não encontrado!"),
                     HttpStatus.NOT_FOUND);
         }
     }
-
+    public ResponseEntity<?> aluga(String id){
+        Optional<Imovel> imovelEncontrato = imovelRepository.findById(id);
+        if(!imovelEncontrato.isEmpty()){
+            imovelEncontrato.get().setReservado(true);
+            imovelRepository.save(imovelEncontrato.get());
+            RetornoGenerico ret = new RetornoGenerico();
+            ret.setRetorno(imovelEncontrato.get());
+            return new ResponseEntity<>(ret , HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(
+                    new RetornoGenericoErro("Imovel não encontrado!"),
+                    HttpStatus.NOT_FOUND);
+        }
+    }
 }

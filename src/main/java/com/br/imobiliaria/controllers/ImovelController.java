@@ -38,4 +38,8 @@ public class ImovelController implements ImovelControllerDocs {
         return imovelService.remove(id);
     }
 
+    @RequestMapping(value = "/aluga/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> aluga(@PathVariable("id") String id){
+        return imovelService.aluga(id);
+    }
 }

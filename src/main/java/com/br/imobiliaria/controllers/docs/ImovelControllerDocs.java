@@ -87,4 +87,27 @@ public interface ImovelControllerDocs {
             )
     })
     ResponseEntity<?> delete(@PathVariable @NotNull String id);
+
+    @Operation
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Aluga um imovel por id",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RetornoGenerico.class)
+                            )
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "imovel não encontrado",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = RetornoGenerico.class)
+                            )
+                    }
+            )
+    })
+    ResponseEntity<?> aluga(@PathVariable @NotNull String id);
 }

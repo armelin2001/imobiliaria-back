@@ -14,7 +14,7 @@ public class Cliente {
     private String nome;
     private String cpf;
     private String email;
-    // TODO implementar senha de cliente
+    private String senha;
 
 
     public Cliente() {
@@ -24,12 +24,14 @@ public class Cliente {
         this.nome = clienteCreateDTO.getNome();
         this.cpf = clienteCreateDTO.getCpf();
         this.email = clienteCreateDTO.getEmail();
+        this.senha = clienteCreateDTO.getSenha();
     }
 
-    public Cliente(String nome, String cpf, String email) {
+    public Cliente(String nome, String cpf, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+        this.senha = senha;
     }
 
     public String getId() {
@@ -62,5 +64,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

@@ -3,13 +3,14 @@ package com.br.imobiliaria.dto.request;
 public class CorretorCreateDto {
     private String nome;
     private String email;
-
+    private String senha;
     public CorretorCreateDto() {
     }
 
-    public CorretorCreateDto(String nome, String email) {
+    public CorretorCreateDto(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
     }
 
     public String getNome() {
@@ -26,5 +27,13 @@ public class CorretorCreateDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

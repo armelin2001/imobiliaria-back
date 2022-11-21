@@ -32,16 +32,13 @@ public class CorretorService {
     }
 
     public ResponseEntity<?> getAll(){
-        RetornoGenericoLista ret = new RetornoGenericoLista(Collections.singletonList(corretorRepository.findAll()));
-        return new ResponseEntity<>( ret , HttpStatus.OK);
+        return new ResponseEntity<>( corretorRepository.findAll() , HttpStatus.OK);
     }
 
     public ResponseEntity<?> getById(String id){
         Optional<Corretor> corretor = corretorRepository.findById(id);
         if(!corretor.isEmpty()){
-            RetornoGenerico ret = new RetornoGenerico();
-            ret.setRetorno(corretor.get());
-            return new ResponseEntity<>( ret.getRetorno(), HttpStatus.OK);
+            return new ResponseEntity<>( corretor.get(), HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>( new RetornoGenericoErro("Corretor não encontrado"), HttpStatus.NOT_FOUND);

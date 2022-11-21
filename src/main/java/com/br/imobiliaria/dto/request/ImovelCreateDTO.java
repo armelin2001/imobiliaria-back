@@ -14,7 +14,6 @@ public class ImovelCreateDTO {
     private String rua;
     private String cep;
     private String complemento;
-    private float valorBase;
     private float valorNegociado;
     private Date criacao;
     private Date venda;
@@ -25,7 +24,7 @@ public class ImovelCreateDTO {
                            String estado, String cidade,
                            String bairro, String rua,
                            String cep, String complemento,
-                           float valorBase, float valorNegociado,
+                           float valorBase,
                            Date criacao, Date venda,
                            boolean reservado,
                            String corretorAnunciadoId) {
@@ -36,7 +35,6 @@ public class ImovelCreateDTO {
         this.rua = rua;
         this.cep = cep;
         this.complemento = complemento;
-        this.valorBase = valorBase;
         this.valorNegociado = valorNegociado;
         this.criacao = criacao;
         this.venda = venda;
@@ -98,14 +96,6 @@ public class ImovelCreateDTO {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public float getValorBase() {
-        return valorBase;
-    }
-
-    public void setValorBase(float valorBase) {
-        this.valorBase = valorBase;
     }
 
     public float getValorNegociado() {

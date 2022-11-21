@@ -13,20 +13,20 @@ public class Corretor {
 
     private String nome;
     private String email;
-
-    // Campo senha
-    // colocar quando implementar o JWT
+    private String senha;
 
     public Corretor() {
     }
 
-    public Corretor(String nome, String email) {
+    public Corretor(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
     }
     public Corretor(CorretorCreateDto corretorCreateDto){
         this.nome = corretorCreateDto.getNome();
         this.email = corretorCreateDto.getEmail();
+        this.senha = corretorCreateDto.getSenha();
     }
     public String getId() {
         return id;
@@ -50,5 +50,13 @@ public class Corretor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

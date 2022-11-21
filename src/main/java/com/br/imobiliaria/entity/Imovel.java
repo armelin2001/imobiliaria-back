@@ -25,7 +25,6 @@ public class Imovel {
     private String rua;
     private String cep;
     private String complemento;
-    private float valorBase;
     private float valorNegociado;
     private Date criacao;
     private Date venda;
@@ -43,7 +42,7 @@ public class Imovel {
 
     public Imovel(TipoImoveis tipoImovel, String estado,
                   String cidade, String bairro, String rua,
-                  String cep, String complemento, float valorBase,
+                  String cep, String complemento,
                   Corretor corretorAnunciado) {
         this.tipoImovel = tipoImovel;
         this.estado = estado;
@@ -52,7 +51,6 @@ public class Imovel {
         this.rua = rua;
         this.cep = cep;
         this.complemento = complemento;
-        this.valorBase = valorBase;
         this.criacao = new Date();
         this.corretorAnunciado = corretorAnunciado;
         this.reservado = false;
@@ -71,7 +69,6 @@ public class Imovel {
         this.rua = rua;
         this.cep = cep;
         this.complemento = complemento;
-        this.valorBase = valorBase;
         this.valorNegociado = valorNegociado;
         this.criacao = criacao;
         this.reservado = false;
@@ -85,7 +82,6 @@ public class Imovel {
         this.rua = imovelCreateDTO.getRua();
         this.cep = imovelCreateDTO.getCep();
         this.complemento = imovelCreateDTO.getComplemento();
-        this.valorBase = imovelCreateDTO.getValorBase();
         this.valorNegociado = imovelCreateDTO.getValorNegociado();
         this.criacao = imovelCreateDTO.getCriacao();
         this.reservado = false;
@@ -152,14 +148,6 @@ public class Imovel {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
-    }
-
-    public float getValorBase() {
-        return valorBase;
-    }
-
-    public void setValorBase(float valorBase) {
-        this.valorBase = valorBase;
     }
 
     public float getValorNegociado() {

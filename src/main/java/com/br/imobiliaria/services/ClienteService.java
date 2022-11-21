@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 @Service
 public class ClienteService {
     @Autowired
@@ -17,17 +16,13 @@ public class ClienteService {
 
     public ResponseEntity<?> saveCliente(ClienteCreateDTO clienteCreateDTO){
         Cliente clienteCreate = new Cliente(clienteCreateDTO);
-        RetornoGenerico ret = new RetornoGenerico();
-        ret.setRetorno(clienteRepository.save(clienteCreate));
-        return new ResponseEntity<>( ret, HttpStatus.OK);
+        return new ResponseEntity<>( clienteRepository.save(clienteCreate), HttpStatus.OK);
     }
 
     public ResponseEntity<?> getById(String id){
         boolean clienteEncontrado = clienteRepository.findById(id).isEmpty();
         if(!clienteEncontrado){
-            RetornoGenerico ret = new RetornoGenerico();
-            ret.setRetorno(clienteRepository.findById(id).get());
-            return new ResponseEntity<>(ret, HttpStatus.OK);
+            return new ResponseEntity<>(clienteRepository.findById(id).get(), HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>( new RetornoGenericoErro(
