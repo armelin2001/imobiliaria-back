@@ -1,0 +1,23 @@
+version: "3.8"
+
+networks:
+  backend:
+    external: false
+    name: backend
+services:
+  mymoviedb:
+    networks:
+      - backend
+    image: mongo:latest
+    container_name: imobiliariadb
+    ports:
+      - 27017:27017
+  movie-app-image:
+    networks:
+      - backend
+    image: imobiliaria-app-image
+    container_name: imobiliaria-app-image
+    ports:
+      - 8080:8080
+    links:
+      - imobiliariadb
