@@ -4,6 +4,7 @@ import com.br.imobiliaria.dto.request.AlugaDto;
 import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.dto.response.RetornoGenerico;
 import com.br.imobiliaria.dto.response.RetornoGenericoLista;
+import com.br.imobiliaria.entity.Imovel;
 import com.sun.istack.NotNull;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +23,7 @@ public interface ImovelControllerDocs {
                     description = "Imovel criado com sucesso",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Imovel.class)
                             )
                     }
             )
@@ -36,7 +37,7 @@ public interface ImovelControllerDocs {
                     description = "Lista todos os imoveis",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenericoLista.class)
+                                    schema = @Schema(implementation = Imovel.class)
                             )
                     }
             )
@@ -50,18 +51,13 @@ public interface ImovelControllerDocs {
                     description = "Retorna imovel por id",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Imovel.class)
                             )
                     }
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "imovel não encontrado",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
-                            )
-                    }
+                    description = "imovel não encontrado"
             )
     })
     ResponseEntity<?> getById(@PathVariable @NotNull String id);
@@ -73,18 +69,13 @@ public interface ImovelControllerDocs {
                     description = "Remove um imovel por id",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Imovel.class)
                             )
                     }
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "imovel não encontrado",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
-                            )
-                    }
+                    description = "imovel não encontrado"
             )
     })
     ResponseEntity<?> delete(@PathVariable @NotNull String id);
@@ -96,16 +87,7 @@ public interface ImovelControllerDocs {
                     description = "Aluga um imovel por id",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
-                            )
-                    }
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "imovel não encontrado",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Imovel.class)
                             )
                     }
             )

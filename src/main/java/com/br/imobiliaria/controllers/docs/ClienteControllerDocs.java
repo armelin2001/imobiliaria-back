@@ -2,6 +2,7 @@ package com.br.imobiliaria.controllers.docs;
 
 import com.br.imobiliaria.dto.request.ClienteCreateDTO;
 import com.br.imobiliaria.dto.response.RetornoGenerico;
+import com.br.imobiliaria.entity.Cliente;
 import com.sun.istack.NotNull;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,18 +21,13 @@ public interface ClienteControllerDocs {
                     description = "Retorna cliente por id",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Cliente.class)
                             )
                     }
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Cliente não encontrado",
-                    content = {
-                            @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
-                            )
-                    }
+                    description = "Cliente não encontrado"
             )
     })
     ResponseEntity<?> getById(@PathVariable @NotNull String id);
@@ -43,7 +39,7 @@ public interface ClienteControllerDocs {
                     description = "Cliente criado com sucesso",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = RetornoGenerico.class)
+                                    schema = @Schema(implementation = Cliente.class)
                             )
                     }
             )
