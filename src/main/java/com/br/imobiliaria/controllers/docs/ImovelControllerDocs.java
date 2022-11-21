@@ -1,5 +1,6 @@
 package com.br.imobiliaria.controllers.docs;
 
+import com.br.imobiliaria.dto.request.AlugaDto;
 import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.dto.response.RetornoGenerico;
 import com.br.imobiliaria.dto.response.RetornoGenericoLista;
@@ -109,5 +110,5 @@ public interface ImovelControllerDocs {
                     }
             )
     })
-    ResponseEntity<?> aluga(@PathVariable @NotNull String id);
+    ResponseEntity<?> aluga(@RequestBody @NotNull AlugaDto alugaDto);
 }

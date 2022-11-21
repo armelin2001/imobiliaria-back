@@ -1,11 +1,14 @@
 package com.br.imobiliaria.services;
 
+import com.br.imobiliaria.dto.request.AlugaDto;
 import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.dto.response.RetornoGenerico;
 import com.br.imobiliaria.dto.response.RetornoGenericoErro;
 import com.br.imobiliaria.dto.response.RetornoGenericoLista;
+import com.br.imobiliaria.entity.Cliente;
 import com.br.imobiliaria.entity.Corretor;
 import com.br.imobiliaria.entity.Imovel;
+import com.br.imobiliaria.repository.ClienteRepository;
 import com.br.imobiliaria.repository.CorretorRepository;
 import com.br.imobiliaria.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ public class ImovelService {
 
     @Autowired
     private CorretorRepository corretorRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     public ResponseEntity<?> saveImovel(ImovelCreateDTO imovelCreateDTO){
         String idCorretor = imovelCreateDTO.getCorretorAnunciadoId();
@@ -69,14 +75,14 @@ public class ImovelService {
                     HttpStatus.NOT_FOUND);
         }
     }
-    public ResponseEntity<?> aluga(String id){
-        Optional<Imovel> imovelEncontrato = imovelRepository.findById(id);
-        if(!imovelEncontrato.isEmpty()){
+    public ResponseEntity<?> aluga(AlugaDto alugaDto){
+        Optional<Imovel> imovelEncontrato = imovelRepository.findById(alugaDto.getIdImovel());
+        Optional<Cliente> clienteEncontrado = clienteRepository.findById(alugaDto.getIdCliente());
+        if(!imovelEncontrato.isEmpty() && !clienteEncontrado.isEmpty()){
             imovelEncontrato.get().setReservado(true);
+            imovelEncontrato.get().setCliente(clienteEncontrado.get());
             imovelRepository.save(imovelEncontrato.get());
-            RetornoGenerico ret = new RetornoGenerico();
-            ret.setRetorno(imovelEncontrato.get());
-            return new ResponseEntity<>(ret , HttpStatus.OK);
+            return new ResponseEntity<>(imovelEncontrato.get() , HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(

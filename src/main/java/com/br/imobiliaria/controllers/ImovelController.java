@@ -2,6 +2,7 @@ package com.br.imobiliaria.controllers;
 
 
 import com.br.imobiliaria.controllers.docs.ImovelControllerDocs;
+import com.br.imobiliaria.dto.request.AlugaDto;
 import com.br.imobiliaria.dto.request.ImovelCreateDTO;
 import com.br.imobiliaria.services.ImovelService;
 import com.sun.istack.NotNull;
@@ -38,8 +39,8 @@ public class ImovelController implements ImovelControllerDocs {
         return imovelService.remove(id);
     }
 
-    @RequestMapping(value = "/aluga/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> aluga(@PathVariable("id") String id){
-        return imovelService.aluga(id);
+    @RequestMapping(value = "/aluga", method = RequestMethod.PATCH)
+    public ResponseEntity<?> aluga(@RequestBody AlugaDto alugaDto){
+        return imovelService.aluga(alugaDto);
     }
 }
